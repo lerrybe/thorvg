@@ -112,21 +112,21 @@ struct UserExample : tvgexam::Example
     {
         if (!tvgexam::verify(canvas->remove())) return false;
 
-        // 마스킹 위치만 시간에 따라 변경
+        // Update masking position based on time
         float t = fmodf(elapsed / 1000.0f, ANIMATION_DURATION);
 
-        // 별 shape 생성
+        // Create star shape
         auto star = tvg::Shape::gen();
         compose_star_shape(star);
 
-        // 그라디언트 fill (색상 시간에 따라 변화)
+        // Apply gradient fill (colors change over time)
         apply_animated_gradient(star, t, ANIMATION_DURATION);
 
-        // 별의 중심 좌표에 맞춰 마스크 위치 계산
+        // Calculate mask position based on star center coordinates
         float mask_cx, mask_cy;
         calculate_mask_position(t, ANIMATION_DURATION, STAR_CENTER_X, STAR_CENTER_Y, mask_cx, mask_cy);
 
-        // 마스크 생성 및 적용
+        // Create and apply mask
         auto mask = tvg::Shape::gen();
         mask->appendCircle(mask_cx, mask_cy, MASK_RADIUS, MASK_RADIUS);
         mask->fill(MASK_COLOR_R, MASK_COLOR_G, MASK_COLOR_B);
